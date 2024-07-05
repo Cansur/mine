@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 const TuiEditor = (props) => {
-    const today = new Date();
     const editorRef = useRef();
     const navigate = useNavigate();
 

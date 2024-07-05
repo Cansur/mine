@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.UUID;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,6 +39,8 @@ public class BoardService {
         board.setTitle(entity.getTitle());
         board.setContent(entity.getContent());
         board.setUserid(entity.getUserid());
+        // board.setCreatetime(entity.getCreatetime());
+        board.setCreatetime(LocalDateTime.now());
         board.setLikes(0);
         board.setCounts(0);
         boardRepository.save(board);

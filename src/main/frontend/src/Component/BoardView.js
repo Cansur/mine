@@ -14,10 +14,9 @@ const BoardView = (props) => {
         axios.get(`/api/boardview?id=${id}`)
             .then(response => setBoard(response.data));
     })
-    // const getData = () => {
-    //     axios.get(`/api/boardview?id=${id}`)
-    //         .then(response => setBoard(response.data));
-    // }
+    // useEffect(() => {
+    //     console.log("ddd")
+    // }, [])
 
     return (
         <div className="margin-left-20">

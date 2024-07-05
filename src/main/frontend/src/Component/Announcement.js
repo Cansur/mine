@@ -12,7 +12,7 @@ const Announcement = (props) => {
 	useEffect(() => {
 		axios.get(`/api/board/list?size=${size}`)
 			.then(response => setPosts(response.data))
-	})
+	}, [])
     return (
         <div className='margin-left-20'>
 			<div className='center' >
@@ -40,7 +40,7 @@ const Announcement = (props) => {
 							<td>{item.type}</td>
 							<td><Link to={`/boardview?id=${item.id}`} className='color-white'>{item.title}</Link></td>
 							<td>{item.userid}</td>
-							<td>{item.createtime}</td>
+							<td>{item.createtime.slice(0,10)}</td>
 							<td>{item.likes}</td>
 							<td>{item.counts}</td>
 						</tr>

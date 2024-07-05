@@ -37,7 +37,7 @@ public class BoardController {
     }
 
     @GetMapping("/api/boardview")
-    public Board getMethodName(@RequestParam("id") Integer param) {
+    public Board getBoardView(@RequestParam("id") Integer param) {
         return boardService.boardview(param);
     }
     
@@ -52,7 +52,7 @@ public class BoardController {
     }
 
     @PostMapping("/api/board/images")
-    public String postMethodName(MultipartFile image) {
+    public String postBoardImages(MultipartFile image) {
         return boardService.postImages(image);
     }
 

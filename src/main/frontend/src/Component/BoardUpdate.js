@@ -22,7 +22,7 @@ const BoardUpdate = () => {
     useEffect(()=> {
         axios.get(`/api/boardview?id=${id}`)
         .then(response => setBody(response.data));
-    })
+    }, [])
     useEffect(()=> {
         setTitle(body.title)
         setType(body.type)
