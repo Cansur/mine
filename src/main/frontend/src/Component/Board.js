@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import TuiEditor from './TuiEditor';
 const Board = () => {
     const [title, setTitle] = useState('');
-    const [type, setType] = useState('free');
+    const [type, setType] = useState('자유');
     const onChange = (e) => { setTitle(e.target.value) };
 
     return (
@@ -16,7 +16,7 @@ const Board = () => {
             <br />
             <div className='padding-20 border-0_5 border-radius-10'>
                 <div className='text-align-end'>
-                    <select className='bg-dark color-white border-radius-5 padding-lr-10' value={type} onChange={e => setType(e.target.value)}>
+                    <select className='bg-dark color-white border-radius-5 padding-lr-10' onChange={e => setType(e.target.value)}>
                         <option value="자유">자유 게시판</option>
                         <option value="공지">공지 사항</option>
                     </select>
@@ -29,7 +29,7 @@ const Board = () => {
             <br />
             <br />
             <div className='border-radius-10'>
-                <TuiEditor title={title} type={type} />
+                <TuiEditor title={title} type={type} content={" "} write={true}/>
             </div>
 
         </div>

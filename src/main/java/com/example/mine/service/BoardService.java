@@ -43,6 +43,15 @@ public class BoardService {
         boardRepository.save(board);
     }
 
+    public void putBoardUpdate(Integer id, BoardRequestDto entity){
+        Board board = boardRepository.findById(id).get();
+        board.setType(entity.getType());
+        board.setTitle(entity.getTitle());
+        board.setContent(entity.getContent());
+        board.setUserid(entity.getUserid());
+        boardRepository.save(board);
+    }
+
     public String postImages(MultipartFile image){
         if (image.isEmpty()) {System.out.println("error"); return "";}
         String orgFilename = image.getOriginalFilename();                                         // 원본 파일명

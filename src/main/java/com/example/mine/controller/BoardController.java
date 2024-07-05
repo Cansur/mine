@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 
@@ -41,6 +44,11 @@ public class BoardController {
     @PostMapping("/api/board/write")
     public void postBoardWrite(@RequestBody BoardRequestDto entity) {
         boardService.writeBoard(entity);
+    }
+
+    @PutMapping("/api/board/update/{id}")
+    public void putBoardUpdate(@PathVariable Integer id, @RequestBody BoardRequestDto entity) {
+        boardService.putBoardUpdate(id, entity);
     }
 
     @PostMapping("/api/board/images")

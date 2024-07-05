@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useRef } from "react";
 import '@toast-ui/editor/dist/i18n/ko-kr';
 import { Editor } from '@toast-ui/react-editor'
@@ -31,6 +32,25 @@ const TuiEditor = (props) => {
         navigate('/');
     };
 
+    const putBoard = () => {
+        if (props.title === "" || editorRef.current.getInstance().getMarkdown() === "") {
+            alert("제목, 내용을 제대로 써주세요.")
+            return;
+        }
+        axios.put(`api/board/update/${props.id}`, {
+            type: props.type,
+            title: props.title,
+            content: editorRef.current.getInstance().getMarkdown(),
+            userid: "abc",
+        }).then((response) => {
+            console.log(response.data);
+        }).catch((error) => {
+            console.error(error);
+        });
+        alert("수정이 완료 되었습니다.");
+        navigate('/');
+    };
+
     const uploadImages = async(blob, callback) => {
         try {
             /*
@@ -60,16 +80,17 @@ const TuiEditor = (props) => {
 
     return (
         <>
-            <Editor
+            {props.content&&<Editor
                 ref={editorRef}
                 height="600px"
                 language="ko-KR"
-                initialValue=" "
+                initialValue={props.content}
                 theme='dark'
                 hooks={{ addImageBlobHook: (blob, callback) => uploadImages(blob, callback) }}
-            />
+            />}
             <div className="bg-color-black padding-top-30 text-align-end padding-lr-20">
-                <button onClick={addBoard} className="btn btn-success padding-lr-20">등록</button>
+                {props.write&&<button onClick={addBoard} className="btn btn-success padding-lr-20">등록</button>}
+                {props.put&&<button onClick={putBoard} className="btn btn-outline-info padding-lr-20">수정</button>}
             </div>
         </>
     );
