@@ -4,15 +4,31 @@ import React, { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
 const BoardList = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
-    const [posts, setPosts] = useState([]);
-    const page = searchParams.get('page');
-    const size = searchParams.get('size');
+	const [searchParams, setSearchParams] = useSearchParams();
+	const [posts, setPosts] = useState([]);
+	const [totalPosts, setTotalPosts] = useState(0);
+	const [page, setPage] = useState(1); //페이지
+	const [size, setSize] = useState(30);
+	const offset = (page - 1) * size; // 시작점과 끝점을 구하는 offset
 
 	useEffect(() => {
 		axios.get(`/api/board/list?size=${size}`)
 			.then(response => setPosts(response.data))
+
+		axios.get(`/api/boardtotal`)
+			.then(response => setTotalPosts(response.data))
 	}, [])
+	useEffect(() => {
+		if(searchParams.get('page') != null) setPage(searchParams.get('page'));
+		setSize(searchParams.get('size'))
+	}, [])
+
+	const postsData = (posts) => {
+		if (posts) {
+			let result = posts.slice(offset, offset + size);
+			return result;
+		}
+	}
 
 	return (
 		<div className='margin-left-20'>
@@ -35,22 +51,22 @@ const BoardList = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{posts.map((item,index)=>
+					{posts.map((item, index) =>
 						<tr key={index} className='table-dark'>
 							<th scope="row">{item.id}</th>
 							<td>{item.type}</td>
 							<td><Link to={`/boardview?id=${item.id}`} className='color-white'>{item.title}</Link></td>
 							<td>{item.userid}</td>
-							<td>{item.createtime.slice(0,10)}</td>
+							<td>{item.createtime.slice(0, 10)}</td>
 							<td>{item.likes}</td>
 							<td>{item.counts}</td>
 						</tr>
 					)}
 				</tbody>
 			</table>
-			<br/>
-			<br/>
-			<h3 className='center'>{`1   2   3   4   5`}</h3>
+			<br />
+			<br />
+			
 		</div>
 	);
 }

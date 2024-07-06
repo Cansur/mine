@@ -33,6 +33,10 @@ public class BoardService {
         return boardRepository.findById(id).get();
     }
 
+    public Long boardTotal(){
+        return boardRepository.count();
+    }
+
     public void writeBoard(BoardRequestDto entity){
         Board board = new Board();
         board.setType(entity.getType());

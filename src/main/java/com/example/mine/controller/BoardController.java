@@ -40,6 +40,12 @@ public class BoardController {
     public Board getBoardView(@RequestParam("id") Integer param) {
         return boardService.boardview(param);
     }
+
+    @GetMapping("/api/boardtotal")
+    public Long getBoardTotal() {
+        return boardService.boardTotal();
+    }
+    
     
     @PostMapping("/api/board/write")
     public void postBoardWrite(@RequestBody BoardRequestDto entity) {
