@@ -41,8 +41,8 @@ const Announcement = (props) => {
 							<td><Link to={`/boardview?id=${item.id}`} className='color-white'>{item.title}</Link></td>
 							<td>{item.userid}</td>
 							<td>{item.createtime.slice(0,10)}</td>
-							<td>{item.likes}</td>
 							<td>{item.counts}</td>
+							<td>{item.likes}</td>
 						</tr>
 					)}
 				</tbody>

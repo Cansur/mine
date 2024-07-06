@@ -29,6 +29,10 @@ public class BoardService {
         return boardRepository.findAll(pageable);
     }
 
+    // public void boardListByType(Pageable pageable){
+    //     System.out.println(boardRepository.findByType("type"));
+    // }
+
     public Board boardview(Integer id){
         return boardRepository.findById(id).get();
     }
@@ -56,6 +60,12 @@ public class BoardService {
         board.setTitle(entity.getTitle());
         board.setContent(entity.getContent());
         board.setUserid(entity.getUserid());
+        boardRepository.save(board);
+    }
+
+    public void increaseCount(Integer id){
+        Board board = boardRepository.findById(id).get();
+        board.setCounts(board.getCounts()+1);
         boardRepository.save(board);
     }
 

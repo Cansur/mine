@@ -37,8 +37,8 @@ const Main = (props) => {
 							<td>{item.userid}</td>
 							<td>{item.createtime.slice(0,10)}</td>
 							{/* <td>{item.createtime.slice(11,16)}</td> */}
-							<td>{item.likes}</td>
 							<td>{item.counts}</td>
+							<td>{item.likes}</td>
 						</tr>
 					)}
 				</tbody>

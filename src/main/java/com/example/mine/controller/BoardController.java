@@ -36,6 +36,12 @@ public class BoardController {
         return boards.getContent();
     }
 
+    // @GetMapping("/api/board/list/type")
+    // public List<Board> getBoardListByType(@PageableDefault(page=0,size=10,sort="id",direction = Sort.Direction.DESC) Pageable pageable) {
+    //     Page<Board> boards = boardService.boardListByType(pageable);
+    //     return boards.getContent();
+    // }
+
     @GetMapping("/api/boardview")
     public Board getBoardView(@RequestParam("id") Integer param) {
         return boardService.boardview(param);
@@ -46,7 +52,6 @@ public class BoardController {
         return boardService.boardTotal();
     }
     
-    
     @PostMapping("/api/board/write")
     public void postBoardWrite(@RequestBody BoardRequestDto entity) {
         boardService.writeBoard(entity);
@@ -55,6 +60,11 @@ public class BoardController {
     @PutMapping("/api/board/update/{id}")
     public void putBoardUpdate(@PathVariable Integer id, @RequestBody BoardRequestDto entity) {
         boardService.putBoardUpdate(id, entity);
+    }
+
+    @PutMapping("/api/board/count/{id}")
+    public void putMethodName(@PathVariable Integer id, @RequestBody String entity) {
+        boardService.increaseCount(id);
     }
 
     @PostMapping("/api/board/images")
