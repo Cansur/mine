@@ -99,6 +99,14 @@ code {
   text-align: center;
 }
 
+.justify-content{
+  justify-content: center;
+}
+
+.test{
+  vertical-align: middle;
+}
+
 br{
   padding-top: 30px;
 }
