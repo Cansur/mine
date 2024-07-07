@@ -165,3 +165,6 @@ table{
   width: 40%;
 }
 
+.inlineBlock{
+  display: inline-block;
+}

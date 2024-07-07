@@ -42,6 +42,13 @@ public class BoardController {
     //     return boards.getContent();
     // }
 
+    @GetMapping("/api/board/list/type")
+    public List<Board> getBoardListByType(@RequestParam("type") String type, 
+        @PageableDefault(page=0,size=10,sort="id",direction = Sort.Direction.DESC) Pageable pageable) {
+        
+        return boardService.boardListByType(type, pageable);
+    }
+
     @GetMapping("/api/boardview")
     public Board getBoardView(@RequestParam("id") Integer param) {
         return boardService.boardview(param);

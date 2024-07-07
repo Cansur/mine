@@ -6,11 +6,11 @@ import { Link, useSearchParams } from 'react-router-dom';
 const Announcement = (props) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [posts, setPosts] = useState([]);
-    const page = searchParams.get('page');
-    const size = searchParams.get('size');
+	const [page, setPage] = useState(0);
+	const [size, setSize] = useState(30);
 
 	useEffect(() => {
-		axios.get(`/api/board/list?size=${size}`)
+		axios.get(`/api/board/list/type?size=${size}&type=${'공지'}`)
 			.then(response => setPosts(response.data))
 	}, [])
     return (
@@ -49,7 +49,6 @@ const Announcement = (props) => {
 			</table>
 			<br/>
 			<br/>
-			<h3 className='center'>{`1   2   3   4   5`}</h3>
 		</div>
     );
 }

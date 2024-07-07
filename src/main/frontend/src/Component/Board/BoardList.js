@@ -7,29 +7,36 @@ const BoardList = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [posts, setPosts] = useState([]);
 	const [totalPosts, setTotalPosts] = useState(0);
-	const [page, setPage] = useState(1); //페이지
-	const [size, setSize] = useState(30);
-	const offset = (page - 1) * size; // 시작점과 끝점을 구하는 offset
+	const [page, setPage] = useState(0); //페이지
+	const [size, setSize] = useState(20);
+	const [curpage, setCurpage] = useState(0);
+	const [number, setNumber] = useState(0);
 
 	useEffect(() => {
-		axios.get(`/api/board/list?size=${size}`)
+		axios.get(`/api/board/list?size=${size}&page=${page}`)
 			.then(response => setPosts(response.data))
 
 		axios.get(`/api/boardtotal`)
 			.then(response => setTotalPosts(response.data))
-	}, [])
+	}, [size, page])
+	// useEffect(() => {
+	// 	if (searchParams.get('page') != null) setPage(parseInt(searchParams.get('page')));
+	// 	setSize(parseInt(searchParams.get('size')))
+	// }, [])
 	useEffect(() => {
-		if(searchParams.get('page') != null) setPage(searchParams.get('page'));
-		setSize(searchParams.get('size'))
-	}, [])
-
-	const postsData = (posts) => {
-		if (posts) {
-			let result = posts.slice(offset, offset + size);
-			return result;
+		setCurpage((Math.floor(page / 5)) * 5);
+		let maxpage = totalPosts - (curpage * size);
+		if (maxpage >= 5 * size) setNumber(5);
+		else setNumber(Math.ceil(maxpage / size));
+	}, [totalPosts, size, page])
+	
+	const rendering = () => {
+		const result = [];
+		for (let i = 0; i < number; i++) {
+			result.push(<li class="page-item"><Link class="page-link" onClick={()=>{setPage(curpage+i)}}>{curpage+i+1}</Link></li>);
 		}
+		return result;
 	}
-
 	return (
 		<div className='margin-left-20'>
 			<div className='center'>
@@ -66,7 +73,14 @@ const BoardList = () => {
 			</table>
 			<br />
 			<br />
-			
+			<br />
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li class="page-item"><Link class="page-link" onClick={()=>{if(page != 0) setPage(page-1)}}>{`<`}</Link></li>
+					{rendering()}
+					<li class="page-item"><Link class="page-link" onClick={()=>{if(Math.ceil(totalPosts/size) != page+1) setPage(page+1)}}>{`>`}</Link></li>
+				</ul>
+			</nav>
 		</div>
 	);
 }

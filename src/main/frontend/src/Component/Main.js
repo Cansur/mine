@@ -45,7 +45,6 @@ const Main = (props) => {
 			</table>
 			<br/>
 			<br/>
-			<h3 className='center'>{`1   2   3   4   5`}</h3>
 		</div>
 	);
 };

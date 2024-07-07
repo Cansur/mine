@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.UUID;
+import java.util.List;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,9 @@ public class BoardService {
         return boardRepository.findAll(pageable);
     }
 
-    // public void boardListByType(Pageable pageable){
-    //     System.out.println(boardRepository.findByType("type"));
-    // }
+    public List<Board> boardListByType(String type, Pageable pageable){
+        return boardRepository.findByType(type, pageable);
+    }
 
     public Board boardview(Integer id){
         return boardRepository.findById(id).get();
