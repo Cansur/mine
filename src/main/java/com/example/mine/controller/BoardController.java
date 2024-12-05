@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 
@@ -33,9 +36,27 @@ public class BoardController {
         return boards.getContent();
     }
 
+    // @GetMapping("/api/board/list/type")
+    // public List<Board> getBoardListByType(@PageableDefault(page=0,size=10,sort="id",direction = Sort.Direction.DESC) Pageable pageable) {
+    //     Page<Board> boards = boardService.boardListByType(pageable);
+    //     return boards.getContent();
+    // }
+
+    @GetMapping("/api/board/list/type")
+    public List<Board> getBoardListByType(@RequestParam("type") String type, 
+        @PageableDefault(page=0,size=10,sort="id",direction = Sort.Direction.DESC) Pageable pageable) {
+        
+        return boardService.boardListByType(type, pageable);
+    }
+
     @GetMapping("/api/boardview")
-    public Board getMethodName(@RequestParam("id") Integer param) {
+    public Board getBoardView(@RequestParam("id") Integer param) {
         return boardService.boardview(param);
+    }
+
+    @GetMapping("/api/boardtotal")
+    public Long getBoardTotal() {
+        return boardService.boardTotal();
     }
     
     @PostMapping("/api/board/write")
@@ -43,8 +64,18 @@ public class BoardController {
         boardService.writeBoard(entity);
     }
 
+    @PutMapping("/api/board/update/{id}")
+    public void putBoardUpdate(@PathVariable Integer id, @RequestBody BoardRequestDto entity) {
+        boardService.putBoardUpdate(id, entity);
+    }
+
+    @PutMapping("/api/board/count/{id}")
+    public void putMethodName(@PathVariable Integer id, @RequestBody String entity) {
+        boardService.increaseCount(id);
+    }
+
     @PostMapping("/api/board/images")
-    public String postMethodName(MultipartFile image) {
+    public String postBoardImages(MultipartFile image) {
         return boardService.postImages(image);
     }
 

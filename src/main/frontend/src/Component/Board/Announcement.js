@@ -3,25 +3,24 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
-const BoardList = () => {
+const Announcement = (props) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [posts, setPosts] = useState([]);
-    const page = searchParams.get('page');
-    const size = searchParams.get('size');
+	const [page, setPage] = useState(0);
+	const [size, setSize] = useState(30);
 
 	useEffect(() => {
-		axios.get(`/api/board/list?size=${size}`)
+		axios.get(`/api/board/list/type?size=${size}&type=${'공지'}`)
 			.then(response => setPosts(response.data))
-	})
-
-	return (
-		<div className='margin-left-20'>
-			<div className='center'>
-				<img className='border-radius-10' height="450" width="800" src='c.png' />
+	}, [])
+    return (
+        <div className='margin-left-20'>
+			<div className='center' >
+				<img className='border-radius-10' height="450" width="800" src='b.png' alt=''/>
 			</div>
 			<br />
 			<br />
-			<h2>전체 게시판</h2>
+			<h2>공지 사항</h2>
 			<table className="table">
 				<thead>
 					<tr className='table-dark'>
@@ -41,18 +40,17 @@ const BoardList = () => {
 							<td>{item.type}</td>
 							<td><Link to={`/boardview?id=${item.id}`} className='color-white'>{item.title}</Link></td>
 							<td>{item.userid}</td>
-							<td>{item.createtime}</td>
-							<td>{item.likes}</td>
+							<td>{item.createtime.slice(0,10)}</td>
 							<td>{item.counts}</td>
+							<td>{item.likes}</td>
 						</tr>
 					)}
 				</tbody>
 			</table>
 			<br/>
 			<br/>
-			<h3 className='center'>{`1   2   3   4   5`}</h3>
 		</div>
-	);
+    );
 }
 
-export default BoardList;
+export default Announcement;

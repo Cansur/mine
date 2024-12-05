@@ -99,6 +99,14 @@ code {
   text-align: center;
 }
 
+.justify-content{
+  justify-content: center;
+}
+
+.test{
+  vertical-align: middle;
+}
+
 br{
   padding-top: 30px;
 }
@@ -147,4 +155,16 @@ table{
 
 .height-500{
   height: 500px;
+}
+
+.width-20{
+  width: 20%;
+}
+
+.width-40{
+  width: 40%;
+}
+
+.inlineBlock{
+  display: inline-block;
 }
