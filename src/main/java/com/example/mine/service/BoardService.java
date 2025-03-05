@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.UUID;
+import java.util.List;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,8 +30,16 @@ public class BoardService {
         return boardRepository.findAll(pageable);
     }
 
+    public List<Board> boardListByType(String type, Pageable pageable){
+        return boardRepository.findByType(type, pageable);
+    }
+
     public Board boardview(Integer id){
         return boardRepository.findById(id).get();
+    }
+
+    public Long boardTotal(){
+        return boardRepository.count();
     }
 
     public void writeBoard(BoardRequestDto entity){
@@ -38,8 +48,25 @@ public class BoardService {
         board.setTitle(entity.getTitle());
         board.setContent(entity.getContent());
         board.setUserid(entity.getUserid());
+        // board.setCreatetime(entity.getCreatetime());
+        board.setCreatetime(LocalDateTime.now());
         board.setLikes(0);
         board.setCounts(0);
+        boardRepository.save(board);
+    }
+
+    public void putBoardUpdate(Integer id, BoardRequestDto entity){
+        Board board = boardRepository.findById(id).get();
+        board.setType(entity.getType());
+        board.setTitle(entity.getTitle());
+        board.setContent(entity.getContent());
+        board.setUserid(entity.getUserid());
+        boardRepository.save(board);
+    }
+
+    public void increaseCount(Integer id){
+        Board board = boardRepository.findById(id).get();
+        board.setCounts(board.getCounts()+1);
         boardRepository.save(board);
     }
 

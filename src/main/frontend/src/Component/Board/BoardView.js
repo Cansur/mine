@@ -13,11 +13,14 @@ const BoardView = (props) => {
     useEffect(() => {
         axios.get(`/api/boardview?id=${id}`)
             .then(response => setBoard(response.data));
-    })
-    // const getData = () => {
-    //     axios.get(`/api/boardview?id=${id}`)
-    //         .then(response => setBoard(response.data));
-    // }
+
+    }, [])
+    useEffect(() => {
+        axios.put(`/api/board/count/${id}`, {
+        }).then((response) => {
+                console.log(response.data);
+        });
+    }, [])
 
     return (
         <div className="margin-left-20">

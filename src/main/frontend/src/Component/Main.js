@@ -7,7 +7,7 @@ const Main = (props) => {
 	useEffect(() => {
 		axios.get("/api/board/list")
 			.then(response => setPosts(response.data))
-	})
+	}, [])
 	return (
 		<div className='margin-left-20'>
 			<div className='center' >
@@ -21,9 +21,9 @@ const Main = (props) => {
 					<tr className='table-dark'>
 						<th scope="col">번호</th>
 						<th scope="col">말머리</th>
-						<th scope="col">제목</th>
+						<th className='width-40' scope="col">제목</th>
 						<th scope="col">작성자</th>
-						<th scope="col">작성일</th>
+						<th className='width-20' scope="col">작성일</th>
 						<th scope="col">조회</th>
 						<th scope="col">추천</th>
 					</tr>
@@ -35,16 +35,16 @@ const Main = (props) => {
 							<td>{item.type}</td>
 							<td><Link to={`/boardview?id=${item.id}`} className='color-white'>{item.title}</Link></td>
 							<td>{item.userid}</td>
-							<td>{item.createtime}</td>
-							<td>{item.likes}</td>
+							<td>{item.createtime.slice(0,10)}</td>
+							{/* <td>{item.createtime.slice(11,16)}</td> */}
 							<td>{item.counts}</td>
+							<td>{item.likes}</td>
 						</tr>
 					)}
 				</tbody>
 			</table>
 			<br/>
 			<br/>
-			<h3 className='center'>{`1   2   3   4   5`}</h3>
 		</div>
 	);
 };

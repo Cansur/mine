@@ -3,11 +3,11 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from './Component/Header';
 import Main from './Component/Main';
-import Announcement from './Component/Announcement';
-import BoardList from './Component/BoardList';
-import Board from './Component/Board';
-import BoardUpdate from './Component/BoardUpdate'
-import BoardView from './Component/BoardView';
+import Announcement from './Component/Board/Announcement';
+import BoardList from './Component/Board/BoardList';
+import Board from './Component/Board/Board';
+import BoardUpdate from './Component/Board/BoardUpdate';
+import BoardView from './Component/Board/BoardView'
 import "./index.css"
 import SideBar from './Component/SideBar';
 import Footer from './Component/Footer';
